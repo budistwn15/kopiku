@@ -1,0 +1,76 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Quicksand', sans-serif;
+}
+
+.text-secondary-orange{
+    color: #D66853;
+}
+
+.card-login{
+    background-image: url(../images/background/image.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: center;
+    height: 100%;
+    border-radius: 0;
+}
+.hr-text {
+	 line-height: 1em;
+	 position: relative;
+	 outline: 0;
+	 border: 0;
+	 color: red;
+	 text-align: center;
+	 height: 1.5em;
+	 opacity: 0.5;
+}
+
+ .hr-text:before {
+	 content: '';
+	 background: linear-gradient(to right, transparent, #818078, transparent);
+	 position: absolute;
+	 left: 0;
+	 top: 50%;
+	 width: 100%;
+	 height: 1px;
+}
+
+ .hr-text:after {
+	 content: attr(data-content);
+	 position: relative;
+	 display: inline-block;
+	 color: black;
+	 padding: 0 0.5em;
+	 line-height: 1.5em;
+	 color: #818078;
+	 background-color: #fcfcfa;
+}
+
+.hero-about{
+    background-image: url("../images/background/hero-about.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    min-height: 400px;
+}
+
+.blockquote-kopiku{
+    font-family: 'Meddon', cursive;
+}
+
+.footer-menu .list-group .list-group-item{
+    background-color: transparent;
+}
+
+.footer{
+    background-color: #D66853;
+}
+
+.footer .list-group .list-group-item{
+    background-color: transparent;
+}
