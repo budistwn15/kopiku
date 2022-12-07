@@ -11,6 +11,10 @@ body{
     color: #D66853;
 }
 
+.border-bottom-orange{
+    border-bottom: 2px solid #D66853;
+}
+
 .card-login{
     background-image: url(../images/background/image.png);
     background-size: cover;

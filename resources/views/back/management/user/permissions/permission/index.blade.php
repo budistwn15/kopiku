@@ -22,8 +22,9 @@
             <h5 class="card-header">
                 Daftar Permissions
             </h5>
+           <div class="card-body">
             <div class="table-responsive mb-5">
-                <table class="table">
+                <table class="table p-4" id="table-data">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -34,40 +35,46 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($permissions as $permission)
-                            <tr>
-                                <td>{{$loop->iteration}}</td>
-                                <td>{{$permission->name}}</td>
-                                <td>{{$permission->guard_name}}</td>
-                                <td>{{$permission->created_at->format("d F Y")}}</td>
-                                <td>
-                                    <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-                                        <div class="btn-group" role="group" aria-label="First group">
-                                                <a href="{{route('permissions.edit',['permission' => $permission->id])}}" class="btn btn-outline-secondary btn-sm me-2">
-                                                    <i class="tf-icons bx bx-edit text-warning"></i>
-                                                </a>
-                                                <form action="{{route('permissions.destroy',['permission' => $permission->id])}}" method="post">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit" class="btn btn-outline-secondary btn-sm btn-hapus" title="Hapus Permission" data-name="{{$permission->name}}"
-                                                        data-table="permission">
-                                                        <i class="tf-icons bx bx-trash text-danger"></i>
-                                                    </button>
-                                                </form>
-                                        </div>
+                        @foreach ($permissions as $permission)
+                        <tr>
+                            <td>{{$loop->iteration}}</td>
+                            <td>{{$permission->name}}</td>
+                            <td>{{$permission->guard_name}}</td>
+                            <td>{{$permission->created_at->format("d F Y")}}</td>
+                            <td>
+                                <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+                                    <div class="btn-group" role="group" aria-label="First group">
+                                        <a href="{{route('permissions.edit',['permission' => $permission->id])}}"
+                                            class="btn btn-outline-secondary btn-sm me-2">
+                                            <i class="tf-icons bx bx-edit text-warning"></i>
+                                        </a>
+                                        <form action="{{route('permissions.destroy',['permission' => $permission->id])}}"
+                                            method="post">
+                                            @csrf
+                                            @method('delete')
+                                            <button type="submit" class="btn btn-outline-secondary btn-sm btn-hapus"
+                                                title="Hapus Permission" data-name="{{$permission->name}}" data-table="permission">
+                                                <i class="tf-icons bx bx-trash text-danger"></i>
+                                            </button>
+                                        </form>
                                     </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5">
-                                    <div class="alert alert-danger">Tidak ada permission yang tersedia</div>
-                                </td>
-                            </tr>
-                        @endforelse
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Guard</th>
+                            <th>Create At</th>
+                            <th>Action</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
+           </div>
         </div>
     </div>
 </div>

@@ -7,10 +7,10 @@
 (function () {
   let cardColor, headingColor, axisColor, shadeColor, borderColor;
 
-  cardColor = config.colors.white;
-  headingColor = config.colors.headingColor;
-  axisColor = config.colors.axisColor;
-  borderColor = config.colors.borderColor;
+  cardColor = '#fff';
+  headingColor = '#3498db';
+  axisColor = '#e74c3c';
+  borderColor = '#f1c40f';
 
   // Total Revenue Report Chart - Bar Chart
   // --------------------------------------------------------------------
@@ -41,7 +41,7 @@
           endingShape: 'rounded'
         }
       },
-      colors: [config.colors.primary, config.colors.info],
+      colors: ['#3498db', '#e74c3c'],
       dataLabels: {
         enabled: false
       },

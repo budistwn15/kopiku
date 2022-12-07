@@ -27,6 +27,8 @@
     <link rel="stylesheet" href="{{asset('themes/assets/css/demo.css')}}" />
     <link rel="stylesheet" href="{{asset('themes/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
     <link rel="stylesheet" href="{{asset('themes/assets/vendor/libs/apex-charts/apex-charts.css')}}" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+    <link href="{{asset('vendor/summernote/summernote-lite.min.css')}}" rel="stylesheet">
     <script src="{{asset('themes/assets/vendor/js/helpers.js')}}"></script>
   </head>
 
@@ -38,7 +40,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="index.html" class="app-brand-link">
+            <a href="{{route('welcome')}}" class="app-brand-link">
               <span class="app-brand-logo demo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     style="fill: #696cff;transform: ;msFilter:;">
@@ -60,107 +62,8 @@
 
           <div class="menu-inner-shadow"></div>
 
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div>Dashboard</div>
-              </a>
-            </li>
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Management</span>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div>User</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="{{route('users.index')}}" class="menu-link">
-                    <div>Users</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('roles.index')}}" class="menu-link">
-                    <div>Roles</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('permissions.index')}}" class="menu-link">
-                    <div>Permissions</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="{{route('assign-permissions.index')}}" class="menu-link">
-                    <div>Assign Permissions</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div>Assign Role</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div>Assign Users</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-notepad"></i>
-                <div>Blog</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div>Artikel</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="#" class="menu-link">
-                    <div>Kategori</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-coffee"></i>
-                    <div>Kopi</div>
-                </a>
-            </li>
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Report</span></li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-store"></i>
-                <div>Transaksi</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="#" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-stats"></i>
-                <div>Laporan</div>
-              </a>
-            </li>
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Profile</span></li>
-            <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-user"></i>
-                    <div>Profile</div>
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="menu-icon tf-icons bx bx-door-open"></i>
-                    <div>Logout</div>
-                </a>
-            </li>
-          </ul>
+          {{-- menu nav --}}
+          <x-layouts.navigation></x-layouts.navigation>
         </aside>
         <!-- / Menu -->
 
@@ -178,27 +81,17 @@
             </div>
 
             <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
-              <!-- Search -->
-              <div class="navbar-nav align-items-center">
-                <div class="nav-item d-flex align-items-center">
-                  <i class="bx bx-search fs-4 lh-0"></i>
-                  <input
-                    type="text"
-                    class="form-control border-0 shadow-none"
-                    placeholder="Search..."
-                    aria-label="Search..."
-                  />
-                </div>
-              </div>
-              <!-- /Search -->
-
               <ul class="navbar-nav flex-row align-items-center ms-auto">
-
                 <!-- User -->
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="{{asset('themes/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                        @if (file_exists("storage/assets/images/users/".auth()->user()->avatar))
+                        <img src="{{asset('storage/assets/images/users/'.auth()->user()->avatar)}}"
+                            class="w-px-40 h-auto rounded-circle" />
+                        @else
+                        <img src="{{auth()->user()->avatar}}" class="w-px-40 h-auto rounded-circle" />
+                        @endif
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -207,12 +100,16 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="{{asset('themes/assets/img/avatars/1.png')}}" alt class="w-px-40 h-auto rounded-circle" />
+                              @if (file_exists("storage/assets/images/users/".auth()->user()->avatar))
+                            <img src="{{asset('storage/assets/images/users/'.auth()->user()->avatar)}}" class="w-px-40 h-auto rounded-circle" />
+                            @else
+                            <img src="{{auth()->user()->avatar}}" class="w-px-40 h-auto rounded-circle" />
+                            @endif
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
-                            <small class="text-muted">Admin</small>
+                            <span class="fw-semibold d-block">{{auth()->user()->name}}</span>
+                            <small class="text-muted">{{implode(', ',auth()->user()->getRoleNames()->toArray())}}</small>
                           </div>
                         </div>
                       </a>
@@ -236,10 +133,15 @@
                       <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="auth-login-basic.html">
+                      <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
                         <i class="bx bx-power-off me-2"></i>
                         <span class="align-middle">Log Out</span>
                       </a>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     </li>
                   </ul>
                 </li>
@@ -295,6 +197,22 @@
     <script src="{{asset('themes/assets/js/main.js')}}"></script>
     <script src="{{asset('themes/assets/js/dashboards-analytics.js')}}"></script>
     <script src="{{asset('assets/js/index.js')}}"></script>
+    <script src="{{asset('vendor/summernote/summernote-lite.min.js')}}"></script>
     @include('sweetalert::alert')
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Masukkan Isi Konten',
+            tabsize: 2,
+            height: 100
+          });
+    </script>
+    <script>
+        $(document).ready(function () {
+             $('#table-data').DataTable();
+        });
+    </script>
+    @yield('script')
   </body>
 </html>
