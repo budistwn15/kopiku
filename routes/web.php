@@ -12,6 +12,7 @@ use App\Http\Controllers\Back\Permissions\AssignUserController;
 use App\Http\Controllers\Back\Permissions\PermissionController;
 use App\Http\Controllers\Back\Permissions\RoleController;
 use App\Http\Controllers\Back\ProfileController;
+use App\Http\Controllers\Back\ReportController;
 use App\Http\Controllers\Back\TransactionController;
 use App\Http\Controllers\Back\UserController as BackUserController;
 use App\Http\Controllers\Front\BlogController;
@@ -19,7 +20,9 @@ use App\Http\Controllers\Front\CartController;
 use App\Http\Controllers\Front\CatalogController;
 use App\Http\Controllers\Front\CheckoutController;
 use App\Http\Controllers\Front\CommentController;
+use App\Http\Controllers\Front\ContactController;
 use App\Http\Controllers\Front\UserController;
+use App\Http\Controllers\Front\WelcomeController;
 use App\Http\Controllers\OngkirController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,9 +37,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [WelcomeController::class,'index'])->name('welcome');
 
 // Authentication
 Route::get('/login',[UserController::class,'login'])->name('login');
@@ -97,6 +98,14 @@ Route::prefix('kopimin')->middleware(['auth','has.role'])->group(function(){
    Route::prefix('transaction')->group(function(){
        Route::get('/',[TransactionController::class,'index'])->name('transactions.index');
         Route::get('/{order:order_code}',[TransactionController::class,'show'])->name('transactions.show');
+        Route::get('/send/{order:order_code}',[TransactionController::class,'send'])->name('transaction.send');
+        Route::put('/send/{order:order_code}',[TransactionController::class,'update'])->name('transaction.update');
+        Route::put('/{order:order_code}',[TransactionController::class,'confirm'])->name('transaction.confirm');
+    });
+
+    Route::prefix('report')->group(function(){
+        Route::get('/',[ReportController::class,'index'])->name('report.index');
+        Route::post('/',[ReportController::class,'index'])->name('report.check');
     });
 
    // Blog
@@ -121,6 +130,9 @@ Route::prefix('kopimin')->middleware(['auth','has.role'])->group(function(){
 
 });
 
+// Contact
+Route::get('/contact',[ContactController::class,'index'])->name('contact.index');
+Route::post('/contact',[ContactController::class,'store'])->name('contact.store');
 
 // Blog
 Route::prefix('blog')->group(function(){

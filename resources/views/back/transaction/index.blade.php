@@ -12,7 +12,7 @@
                     <div class="card bg-success">
                         <div class="card-body text-center">
                             <h5 class="card-title text-white">Berhasil</h5>
-                            <h3 class="text-white">5</h3>
+                            <h3 class="text-white">{{ $transaction_paid }}</h3>
                         </div>
                     </div>
                 </div>
@@ -20,7 +20,7 @@
                     <div class="card bg-warning">
                         <div class="card-body text-center">
                             <h5 class="card-title text-white">Menunggu</h5>
-                            <h3 class="text-white">5</h3>
+                            <h3 class="text-white">{{ $transaction_waiting }}</h3>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                     <div class="card bg-danger">
                         <div class="card-body text-center">
                             <h5 class="card-title text-white">Belum</h5>
-                            <h3 class="text-white">5</h3>
+                            <h3 class="text-white">{{ $delivery_waiting }}</h3>
                         </div>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="card bg-warning">
                         <div class="card-body text-center">
                             <h5 class="card-title text-white">Dikirim</h5>
-                            <h3 class="text-white">5</h3>
+                            <h3 class="text-white">{{ $delivery_sent }}</h3>
                         </div>
                     </div>
                 </div>
@@ -51,9 +51,21 @@
                     <div class="card bg-success">
                         <div class="card-body text-center">
                             <h5 class="card-title text-white">Diterima</h5>
-                            <h3 class="text-white">5</h3>
+                            <h3 class="text-white">{{ $delivery_received }}</h3>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <h4 class="alert-heading">Informasi</h4>
+                    <p>Jangan lupa untuk konfirmasi pemesanan, apabila pesanan kamu sudah sampai 😊</p>
                 </div>
             </div>
         </div>
@@ -114,9 +126,23 @@
                                         @currency($total_pembayaran)
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-info mb-3">Detail</a>
-                                        <a href="#" class="btn btn-success mb-3">Kirim</a>
-                                        <a href="#" class="btn btn-warning mb-3">Detail</a>
+                                        <a href="{{ route('transactions.show',['order' => $transaction->order_code]) }}" class="btn btn-info mb-3">Detail</a>
+                                        @role('Admin')
+                                        <a href="{{ route('transaction.send',['order' => $transaction->order_code]) }}" class="btn btn-success mb-3">Kirim</a>
+                                        @endrole
+                                        @role('Pelanggan')
+                                        @if ($transaction->delivery_status == 'waiting' || $transaction->delivery_status == 'sent')
+                                           <form action="{{ route('transaction.confirm',['order' => $transaction->order_code]) }}" method="post">
+                                            @method('put')
+                                            @csrf
+                                            <button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
+                                                data-bs-title="Jika pesanan kamu sudah sampai silahkan lakukan konfirmasi pemesanan." class="btn btn-warning" {{
+                                                $transaction->delivery_status == 'waiting' ? 'disabled' : '' }}>
+                                                Konfirmasi Pesanan
+                                            </button>
+                                        </form>
+                                        @endif
+                                        @endrole
                                     </td>
                                 </tr>
                             @endforeach

@@ -95,7 +95,7 @@
             @endrole
             @role('Admin')
             <li class="menu-item">
-              <a href="#" class="menu-link">
+              <a href="{{ route('report.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-stats"></i>
                 <div>Laporan</div>
               </a>

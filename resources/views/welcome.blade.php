@@ -3,15 +3,18 @@
 @section('content')
 <div class="container mt-5 mb-5">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 mb-5">
             <p class="fw-bold text-secondary-orange">KOPIKU</p>
             <h2 class="display-1">Enjoy Your <br> Morning Cofee</h2>
             <p class="lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Enim, sed sit non sit. Sed purus
                 nunc, amet facilisis viverra facilisi amet felis, tortor.</p>
             <div class="btn-group mt-4" role="group">
-                <button type="button" class="btn btn-dark">Get Your Now</button>
+                <a href="{{ route('catalogs.index') }}" class="btn btn-dark">Get Your Now</a>
                 <button type="button" class="btn btn-white">Reservation</button>
             </div>
+        </div>
+        <div class="col-md-6">
+            <img src="{{ asset('assets/images/hero.png') }}" alt="Kopiku" class="img-fluid">
         </div>
     </div>
 </div>
@@ -40,17 +43,14 @@
                 <p class="lead text-secondary">More than 100 types of coffee are ready to serve by our professionals.
                 </p>
                 <ul class="nav mb-4">
-                    <li class="nav-item">
-                        <a class="nav-link text-secondary-orange" aria-current="page" href="#">Cappucino</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Latte</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Arabica</a>
-                    </li>
+                    @foreach ($coffees as $coffee)
+                        <li class="nav-item">
+                            <a class="nav-link text-secondary-orange" aria-current="page"
+                                href="{{route('catalogs.show',['coffee' => $coffee->code])}}">{{ $coffee->name }}</a>
+                        </li>
+                    @endforeach
                 </ul>
-                <a href="#" class="text-decoration-none text-white mt-4">More Menu <i
+                <a href="{{ route('catalogs.index') }}" class="text-decoration-none text-white mt-4">More Menu <i
                         class="bi bi-arrow-right-short"></i></a>
             </div>
         </div>
@@ -63,114 +63,22 @@
             <div class="col-md-12 text-center">
                 <h2 class="fw-bold display-5"><span class="text-secondary-orange">Weekend</span> Special Products</h2>
                 <p>Check out our daily special product that you can get with 20% OFF!</p>
-                <ul class="nav nav-pills justify-content-center mt-5">
-                    <li class="nav-item">
-                        <a class="nav-link bg-dark text-white" aria-current="page" href="#">Accessories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Coffee Bean</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Boundle</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Apparel</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="#">Apparel Coffee</a>
-                    </li>
-                </ul>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
+            @foreach ($coffees as $coffee)
+                <div class="col-md-3 mb-5">
+                    <div class="card">
+                        <img src="{{asset('storage/assets/images/coffees/'.$coffee->thumbnail)}}" class="card-img-top" alt="Kopiku"
+                            style="background-size:cover;background-repeat:no-repeat;background-position:center">
+                        <div class="card-body">
+                            <h5 class="fw-bold">@currency($coffee->price)</h5>
+                            <a href="{{route('catalogs.show',['coffee' => $coffee->code])}}" class="text-decoration-none text-dark"><p class="fw-bold m-0">{{ $coffee->name }}</p></a>
+                            <p class="m-0">{{ $coffee->tagline }}</p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-5">
-                <div class="card">
-                    <img src="{{asset('assets/images/kopi/2.jpg')}}" class="card-img-top" alt="Kopiku"
-                        style="background-size:cover;background-repeat:no-repeat;background-position:center">
-                    <div class="card-body">
-                        <h5 class="fw-bold">Rp. 25.000</h5>
-                        <p class="fw-bold m-0">Espresso</p>
-                        <p class="m-0">Minuman cocok buat kamu</p>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 </section>
@@ -200,8 +108,8 @@
                             <i class="bi bi-collection" style="font-size: 32px"></i>
                         </div>
                         <div class="col-md-8">
-                            <h5 class="card-title"> Active Community</h5>
-                            <p class="card-text">You Can Reach Out Whenever You Want</p>
+                            <h5 class="card-title"> Premium Quality</h5>
+                            <p class="card-text">A premium quality coffee is what our customers deserve</p>
                         </div>
                     </div>
                 </div>
@@ -211,8 +119,8 @@
                             <i class="bi bi-collection" style="font-size: 32px"></i>
                         </div>
                         <div class="col-md-8">
-                            <h5 class="card-title"> Active Community</h5>
-                            <p class="card-text">You Can Reach Out Whenever You Want</p>
+                            <h5 class="card-title"> Best Product Design</h5>
+                            <p class="card-text">We worked a lot to make a great experience</p>
                         </div>
                     </div>
                 </div>
@@ -222,8 +130,8 @@
                             <i class="bi bi-collection" style="font-size: 32px"></i>
                         </div>
                         <div class="col-md-8">
-                            <h5 class="card-title"> Active Community</h5>
-                            <p class="card-text">You Can Reach Out Whenever You Want</p>
+                            <h5 class="card-title"> The best material</h5>
+                            <p class="card-text">Our product is made by premium materials</p>
                         </div>
                     </div>
                 </div>

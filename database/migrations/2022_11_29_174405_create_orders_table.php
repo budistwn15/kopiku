@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('order_code');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('payment_status',100)->default('waiting');
+            $table->enum('delivery_status',['waiting','sent','received']);
+            $table->string('resi')->nullable();
             $table->string('midtrans_url')->nullable();
             $table->string('midtrans_booking_code')->nullable();
             $table->timestamps();

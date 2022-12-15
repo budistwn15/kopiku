@@ -55,6 +55,10 @@ body{
 	 background-color: #fcfcfa;
 }
 
+.hero{
+    margin-top: -200px;
+}
+
 .hero-about{
     background-image: url("../images/background/hero-about.png");
     background-size: cover;

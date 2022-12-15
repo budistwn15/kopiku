@@ -47,7 +47,7 @@ class TypeController extends Controller
 
         Type::create([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
             'thumbnail' => $namaFile,
         ]);
@@ -91,7 +91,7 @@ class TypeController extends Controller
 
         $type->update([
             'name' => $request->name,
-            'slug' => Str::slug($request->name),
+            'slug' => $slug,
             'description' => $request->description,
             'thumbnail' => $namaFile,
         ]);

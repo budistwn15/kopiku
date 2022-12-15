@@ -19,7 +19,7 @@
                     <a class="nav-link @yield('activeBlog')" href="{{route('blogs.index')}}">Blog</a>
                 </li>
                 <li class="nav-item mx-2">
-                    <a class="nav-link @yield('activeContact')" href="#">Contact Us</a>
+                    <a class="nav-link @yield('activeContact')" href="{{ route('contact.index') }}">Contact Us</a>
                 </li>
                 <li class="nav-item mx-2">
                     <a class="nav-link @yield('activeAbout')" href="{{route('about')}}">About Us</a>
