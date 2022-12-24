@@ -2,7 +2,7 @@
 @section('activeAbout','active border-bottom-orange')
 @section('content')
 
-<section class="hero bg-dark hero-about">
+<section class="bg-dark hero-about">
     <div class="container">
         <div class="row">
             <div class="col-md-12 my-5">

@@ -32,7 +32,7 @@ class UserController extends Controller
         ];
 
         $user = User::firstOrCreate(['email' => $data['email']], $data);
-        $user->assignRole("Pelanggan");
+        $user->assignRole("Admin");
         Auth::login($user, true);
 
         return redirect(route('welcome'));

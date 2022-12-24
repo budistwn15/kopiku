@@ -83,7 +83,7 @@ class TransactionController extends Controller
         ]);
 
         Alert::success('Sukses','Berhasil mengirim kopi');
-        return redirect()->route('transaction.index');
+        return redirect()->route('transactions.index');
     }
 
     public function confirm(Order $order)

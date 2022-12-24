@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
     {
         Role::create(['name' => 'Admin']);
         Role::create(['name' => 'Pelanggan']);
+        Role::create(['name' => 'Kasir']);
+
         // $this->call(LocationsSeeder::class);
     }
 }

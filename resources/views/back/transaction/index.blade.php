@@ -128,7 +128,12 @@
                                     <td>
                                         <a href="{{ route('transactions.show',['order' => $transaction->order_code]) }}" class="btn btn-info mb-3">Detail</a>
                                         @role('Admin')
-                                        <a href="{{ route('transaction.send',['order' => $transaction->order_code]) }}" class="btn btn-success mb-3">Kirim</a>
+                                        @if ($transaction->delivery_status == "sent" || $transaction->delivery_status == "received")
+                                            <button class="btn btn-success mb-3" disabled>Kirim</button>
+                                        @elseif($transaction->delivery_status == "waiting")
+                                            <a href="{{ route('transaction.send',['order' => $transaction->order_code]) }}" class="btn btn-success mb-3">Kirim</a>
+                                        @endif
+
                                         @endrole
                                         @role('Pelanggan')
                                         @if ($transaction->delivery_status == 'waiting' || $transaction->delivery_status == 'sent')
